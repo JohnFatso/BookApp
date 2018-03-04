@@ -9,4 +9,19 @@
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <!--
+    Define the strings to be used in the different activities here.
+    Make sure to follow the format "activityName_viewType_textLabel"
+    -->
+
+    <!--main activity-->
+    <string name="MainActivity_button_Read">Read</string>
+    <string name="MainActivity_button_Search">Search</string>
+    <string name="MainActivity_button_Tags">Tags</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

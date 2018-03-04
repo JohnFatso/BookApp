@@ -9,9 +9,11 @@
     <color name="colorPrimary">#080808</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorTransparent">#00000000</color>
 
     <!--customizable part-->
     <color name="colorButton">#000000</color>
     <color name="colorTextDefault">#FFFFFF</color>
+
 
 </resources>
