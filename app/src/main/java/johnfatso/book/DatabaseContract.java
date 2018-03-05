@@ -7,6 +7,10 @@ package johnfatso.book;
  * @version 1.0.0
  * createdDate 04-03-2018
  * updatedDate 04-03-2018
+ *
+ * This class will specify the skeletal structure of all the databases the app is about to use.
+ * For each new table a separate inner class has to be created
+ *
  */
 
 

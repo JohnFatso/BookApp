@@ -1,5 +1,6 @@
 package johnfatso.book;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,6 +24,20 @@ class DatabaseOperationHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db){
         db.execSQL(DatabaseContract.TagRecords.SQL_CREATE_ENTRIES);
+        ContentValues attribute_1=new ContentValues();
+        ContentValues attribute_2=new ContentValues();
+        ContentValues attribute_3=new ContentValues();
+        attribute_1.put(DatabaseContract.TagRecords.COLUMN_SETTINGS,"TestSetting1");
+        attribute_1.put(DatabaseContract.TagRecords.COLUMN_VALUE,"TestValue1");
+        attribute_2.put(DatabaseContract.TagRecords.COLUMN_SETTINGS,"TestSetting1");
+        attribute_2.put(DatabaseContract.TagRecords.COLUMN_VALUE,"TestValue1");
+        attribute_3.put(DatabaseContract.TagRecords.COLUMN_SETTINGS,"TestSetting1");
+        attribute_3.put(DatabaseContract.TagRecords.COLUMN_VALUE,"TestValue1");
+
+        db.insert(DatabaseContract.TagRecords.TABLE_NAME,null,attribute_1);
+        db.insert(DatabaseContract.TagRecords.TABLE_NAME,null,attribute_2);
+        db.insert(DatabaseContract.TagRecords.TABLE_NAME,null,attribute_3);
+
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -35,5 +50,4 @@ class DatabaseOperationHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
-
 }
