@@ -3,11 +3,18 @@ package johnfatso.book;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
     // Remove the below line after defining your own ad unit ID.
@@ -15,10 +22,33 @@ public class MainActivity extends AppCompatActivity {
             + "To show live ads, replace the ad unit ID in res/values/strings.xml with your own ad unit ID.";
 
 
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //toolbar
+        Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorTextDefault));
+
+        //naviagtion pane
+        drawerLayout=findViewById(R.id.drawerLayout_main);
+        navigationView=findViewById(R.id.navigationView_main);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        item.setChecked(true);
+                        drawerLayout.closeDrawers();
+                        return true;
+                    }
+                }
+        );
+
 
         // Load an ad into the AdMob banner view.
         AdView adView = (AdView) findViewById(R.id.adView);
@@ -30,26 +60,17 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show();
     }
 
+    public void onTouchButton(View view){
+        switch (((Button) view).getId()){
+            case R.id.button_read:
+                break;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+            case R.id.button_tag:
+                break;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+            case  R.id.button_search:
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

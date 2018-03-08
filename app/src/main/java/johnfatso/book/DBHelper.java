@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
  * @author  Janakiraman J
  * @version 1.0.0
  * createdDate 04-03-2018
- * updatedDate 04-03-2018
+ * updatedDate 05-03-2018
  */
 
 class DBOpertion{
@@ -28,4 +28,7 @@ class DBOpertion{
         DB.update(tableName, contentValues, columnSettings, WhereArgs);
     }
 
+    void closeDatabaseConnection(){
+        DB.close();
+    }
 }

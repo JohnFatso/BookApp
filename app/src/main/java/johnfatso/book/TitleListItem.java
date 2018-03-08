@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 
 /**
@@ -18,14 +20,18 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class TitleListItem extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String TITLE = "param1";
+    private static final String DESCRIPTION = "param2";
+    private static final String FAVOURITE = "param3";
+    private static final String IS_FAVOURITABLE = "param4";
+
+    // fragment attributes
+    private String title;
+    private String description;
+    private Boolean favourite;
+    private Boolean isFavouriteApplicable;
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,16 +43,30 @@ public class TitleListItem extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param title Parameter 1.
+     * @param description Parameter 2.
+     * @param favourite Parameter 2.
      * @return A new instance of fragment TitleListItem.
      */
-    // TODO: Rename and change types and number of parameters
-    public static TitleListItem newInstance(String param1, String param2) {
+
+    public static TitleListItem newInstance(String title, String description, Boolean favourite) {
         TitleListItem fragment = new TitleListItem();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(TITLE, title);
+        args.putString(DESCRIPTION, description);
+        args.putBoolean(FAVOURITE,favourite);
+        args.putBoolean(IS_FAVOURITABLE,true);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static TitleListItem newInstance(String title, String description) {
+        TitleListItem fragment = new TitleListItem();
+        Bundle args = new Bundle();
+        args.putString(TITLE, title);
+        args.putString(DESCRIPTION, description);
+        args.putBoolean(FAVOURITE,false);
+        args.putBoolean(IS_FAVOURITABLE,false);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,8 +75,22 @@ public class TitleListItem extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            title = getArguments().getString(TITLE);
+            description = getArguments().getString(DESCRIPTION);
+            favourite = getArguments().getBoolean(FAVOURITE);
+        }
+
+        TextView titleTextView=(TextView) getView().findViewById(R.id.titleText);
+        titleTextView.setText(title);
+        TextView descriptionView=(TextView) getView().findViewById(R.id.descriptionText);
+        descriptionView.setText(description);
+        ImageButton favouriteButton = (ImageButton) getView().findViewById(R.id.favouriteButton);
+        if(isFavouriteApplicable) {
+            favouriteButton.setVisibility(View.VISIBLE);
+            setFavouriteStatus(favourite);
+        }
+        else {
+            favouriteButton.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -65,13 +99,6 @@ public class TitleListItem extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_title_list_item, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -102,7 +129,34 @@ public class TitleListItem extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+
+    }
+
+    /**
+     * declare and define fragment specific user defined functions
+     */
+
+    void setFavouriteStatus(Boolean isFavourite){
+        ImageButton favouriteButton = getView().findViewById(R.id.favouriteButton);
+        if(isFavourite){
+            favouriteButton.setImageResource(android.R.drawable.btn_star_big_on);
+        }
+        else{
+            favouriteButton.setImageResource(android.R.drawable.btn_star_big_off);
+        }
+    }
+
+    /**
+     * call this function when the favourite button
+     *
+     * The function will toggle the favourite status of the title
+     * change the favourite status in database
+     * toggle the image
+     *
+      * @param view
+     */
+    public void onTouchFavouriteButton(View view){
+        favourite=!favourite;
+        setFavouriteStatus(favourite);
     }
 }
