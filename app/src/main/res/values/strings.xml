@@ -27,5 +27,7 @@
     <string name="Main_nav_menu_about">About</string>
     <string name="title_activity_title_with_out_favourite">TitleWithOutFavouriteActivity</string>
 
+    <string name="mockDescription">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula risus, consectetur ac tortor id.</string>
+
 
 </resources>
