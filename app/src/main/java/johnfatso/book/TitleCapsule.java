@@ -4,21 +4,20 @@ package johnfatso.book;
  * Created by user on 08-03-2018.
  */
 
-class TitleCapsule{
-    private final String  title;
+class TitleCapsule extends DataCapsule{
+
     private final String descriptionAboutTheTitle;
-    private final String masterTitle;
     private final Boolean isSubFoldersExist;
 
-    public TitleCapsule(String title, String descriptionAboutTheTitle, String masterTitle, Boolean isSubFoldersExist){
-        this.title=title;
+    public TitleCapsule(String title, String descriptionAboutTheTitle, String masterTitle, Boolean isSubFoldersExist,int index){
+        super(title,masterTitle,true,index);
         this.descriptionAboutTheTitle=descriptionAboutTheTitle;
         this.masterTitle=masterTitle;
         this.isSubFoldersExist=isSubFoldersExist;
     }
 
-    public String getTitle(){
-        return title;
+    public String getContent(){
+        return content;
     }
 
     public String getDescriptionAboutTheTitle(){
@@ -31,6 +30,10 @@ class TitleCapsule{
 
     public Boolean isSubFoldersExist(){
         return isSubFoldersExist;
+    }
+
+    public int getIndex(){
+        return index;
     }
 
 }

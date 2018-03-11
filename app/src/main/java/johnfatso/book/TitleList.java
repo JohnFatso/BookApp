@@ -1,5 +1,6 @@
 package johnfatso.book;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.ViewDebug;
 
@@ -13,65 +14,61 @@ import java.util.Stack;
 
 class TitleList {
 
-    private ArrayList<TitleCapsule> titleList;
-    private String masterTitle;
-
-    private Stack bookStack;
-    private String currentTile;
-    private int currentLevel;
+    private BookContentStack bookKeeper;
+    private DataCapsule currentSelection;
 
     public TitleList(){
-        this.bookStack=new Stack();
+        this.bookKeeper=BookContentStack.getBookContentStack();
+        bookKeeper.addNewList(getMockTitle(),true);
+        currentSelection=null;
     }
 
     //Todo: remove and install a proper function
     //stub for list provider
 
-    private TitleCapsule getTitleCapsule(String title){
-        for(TitleCapsule titleCapsule : titleList){
-            if(titleCapsule.getTitle()==title) {
-                return titleCapsule;
-            }
-        }
-        return null;
+    public ArrayList getRootList(){
+        return bookKeeper.getCurrentList();
     }
 
-    public ArrayList<TitleCapsule> titleSelected(String selectedTitle){
-        this.bookStack.add(selectedTitle);
-        if(getTitleCapsule(selectedTitle).isSubFoldersExist()){
-            //Todo:implement real function
-            titleList=getMockTitle();
-            return
-        }
+    public ArrayList getListAssociatedToTheTitleIndex(int position){
+        currentSelection = bookKeeper.getCurrentList().get(position);
+        return getMockTitle();
     }
 
-    public void flushBookStack(){
-        for(int i=0;i<this.bookStack.size();i++){
-            Log.v("JJT",bookStack.get(i).toString());
-        }
+    public ArrayList getContentAssociatedtoTheTitleIndex(int position){
+        currentSelection = bookKeeper.getCurrentList().get(position);
+        return getMockContent();
     }
+
+    public ArrayList getMasterTitleList(){
+        bookKeeper.removeCurrentList();
+        this.currentSelection=bookKeeper.getCapsule(bookKeeper.getCurrentList().get(0).getContent());
+        return bookKeeper.getCurrentList();
+    }
+
 
     //Todo:remove this part when the actual function has been implemented
 
-    private ArrayList<TitleCapsule> getMockTitle(){
-        String levelSuffix= Integer.toString(currentLevel);
-        String titleFix = bookStack.peek().toString();
+    private ArrayList<DataCapsule> getMockTitle(){
+        String levelSuffix= Integer.toString(bookKeeper.getLevel());
+        Boolean subfolder=true;
 
-        ArrayList<TitleCapsule> tempList = new ArrayList<>(5);
+        ArrayList<DataCapsule> tempList = new ArrayList<>(5);
+        if(bookKeeper.getLevel()>3) subfolder=false;
 
         for (int i=0; i<5;i++){
-            TitleCapsule tempCapsule = new TitleCapsule("Title_level_"+levelSuffix,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula risus, consectetur ac tortor id.",this.currentTile,true);
+            TitleCapsule tempCapsule = new TitleCapsule("Title_level_"+levelSuffix,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula risus, consectetur ac tortor id.",this.currentSelection.getContent(),subfolder, i);
             tempList.add(tempCapsule);
         }
 
         return tempList;
     }
 
-    private ArrayList<ContentCapsule> getMockContent(){
-        ArrayList<ContentCapsule> tempContent = new ArrayList<>(10);
+    private ArrayList<DataCapsule> getMockContent(){
+        ArrayList<DataCapsule> tempContent = new ArrayList<>(10);
 
         for(int i=0;i<10;i++){
-            ContentCapsule contentCapsule=new ContentCapsule("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula risus, consectetur ac tortor id.", i);
+            ContentCapsule contentCapsule=new ContentCapsule("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ligula risus, consectetur ac tortor id.", this.currentSelection.getContent(), i);
             tempContent.add(contentCapsule);
         }
 

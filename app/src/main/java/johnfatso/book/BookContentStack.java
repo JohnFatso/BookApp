@@ -12,7 +12,7 @@ class BookContentStack{
     private static BookContentStack bookContentStack;
 
     class ListStackElement{
-        private ArrayList list;
+        private ArrayList<DataCapsule> list;
         private Boolean isTitleList;
 
         public ListStackElement(ArrayList list, Boolean isTitleList){
@@ -32,19 +32,30 @@ class BookContentStack{
     private Stack<ListStackElement> masterStack;
     private int level;
 
+    /**
+     * Singleton being defined here
+     */
+
     private BookContentStack(){
         masterStack=new Stack<ListStackElement>();
         level=0;
     }
 
-    public BookContentStack getBookContentStack(){
+    public static BookContentStack getBookContentStack(){
         if(bookContentStack==null) {
             bookContentStack = new BookContentStack();
         }
             return bookContentStack;
     }
 
-    public int addNewList(ArrayList newIncomingList, Boolean isTitleList){
+    /**
+     *
+     * @param newIncomingList
+     * @param isTitleList
+     * @return
+     */
+
+    public int addNewList(ArrayList<DataCapsule> newIncomingList, Boolean isTitleList){
         ListStackElement tempListStackElement=new ListStackElement(newIncomingList, isTitleList);
         this.masterStack.add(tempListStackElement);
         this.level=this.masterStack.size();
@@ -61,12 +72,31 @@ class BookContentStack{
         return this.level;
     }
 
-    public ArrayList getCurrentList(){
+    public ArrayList<DataCapsule> getCurrentList(){
         return this.masterStack.peek().getList();
     }
 
     public Boolean checkIfCurrentListIsTitleList(){
         return this.masterStack.peek().isTitleList();
     }
+
+    public DataCapsule getCapsule(int position){
+        DataCapsule dataCapsule= (DataCapsule) this.masterStack.peek().getList().get(position);
+        return dataCapsule;
+    }
+
+    public DataCapsule getCapsule(String title){
+
+        ListStackElement listStackElement = masterStack.pop();
+        ArrayList<DataCapsule> tempList = masterStack.peek().getList();
+        for(int i=0;i<tempList.size();i++){
+            if(tempList.get(i).getContent().equals(title)){
+                masterStack.add(listStackElement);
+                return tempList.get(i);
+            }
+        }
+        return null;
+    }
+
 
 }
