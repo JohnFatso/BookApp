@@ -9,16 +9,21 @@ abstract class DataCapsule {
     protected String masterTitle;
     protected Boolean isTitle;
     protected int index;
+    protected Boolean canSetToFavourite;
 
-    public DataCapsule(String content, String masterTitle, Boolean isTitle, int index){
+    public DataCapsule(String content, String masterTitle, Boolean isTitle, int index, Boolean canSetToFavourite){
         this.content=content;
         this.masterTitle=masterTitle;
         this.isTitle=isTitle;
         this.index=index;
+        this.canSetToFavourite=canSetToFavourite;
     }
 
     public Boolean isTitle(){
         return isTitle;
+    }
+    public Boolean canSetToFavourite(){
+        return canSetToFavourite;
     }
 
     public abstract String getContent();

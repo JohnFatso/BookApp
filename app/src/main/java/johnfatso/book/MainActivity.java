@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
     public void onTouchButton(View view){
         switch (((Button) view).getId()){
             case R.id.button_read:
+                Intent intent=new Intent(this, TitleListActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.button_tag:

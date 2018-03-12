@@ -31,7 +31,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".TitleWithOutFavouriteActivity"
+            android:name=".TitleListActivity"
             android:label="@string/title_activity_title_with_out_favourite"></activity>
     </application>
 

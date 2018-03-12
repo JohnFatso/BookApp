@@ -9,8 +9,8 @@ class TitleCapsule extends DataCapsule{
     private final String descriptionAboutTheTitle;
     private final Boolean isSubFoldersExist;
 
-    public TitleCapsule(String title, String descriptionAboutTheTitle, String masterTitle, Boolean isSubFoldersExist,int index){
-        super(title,masterTitle,true,index);
+    public TitleCapsule(String title, String descriptionAboutTheTitle, String masterTitle, Boolean isSubFoldersExist,int index, Boolean canSetToFavourite){
+        super(title,masterTitle,true,index,canSetToFavourite);
         this.descriptionAboutTheTitle=descriptionAboutTheTitle;
         this.masterTitle=masterTitle;
         this.isSubFoldersExist=isSubFoldersExist;

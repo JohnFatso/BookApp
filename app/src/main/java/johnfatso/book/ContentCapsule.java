@@ -12,13 +12,13 @@ class ContentCapsule extends DataCapsule{
     private Boolean isPoetry;
     private int paraIndex;
 
-    public ContentCapsule(String content, String masterTitle, int index){
-        super(content, masterTitle, false, index);
+    public ContentCapsule(String content, String masterTitle, int index, Boolean canSetToFavourite){
+        super(content, masterTitle, false, index, canSetToFavourite);
         this.isPoetry=true;
     }
 
-    public ContentCapsule(String content, String masterTitle, int index, int paraIndex){
-        super(content, masterTitle, false, index);
+    public ContentCapsule(String content, String masterTitle, int index, int paraIndex, Boolean canSetToFavourite){
+        super(content, masterTitle, false, index, canSetToFavourite);
         this.isPoetry=false;
         this.paraIndex=paraIndex;
     }
