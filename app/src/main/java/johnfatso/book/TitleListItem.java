@@ -142,6 +142,7 @@ public class TitleListItem extends Fragment {
             favouriteButton.setImageResource(android.R.drawable.btn_star_big_on);
         }
         else{
+
             favouriteButton.setImageResource(android.R.drawable.btn_star_big_off);
         }
     }
